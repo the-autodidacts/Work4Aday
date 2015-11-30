@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'application#welcome'
+  get '/application' => 'application#index'
 
   resources :messages
   resources :jobpostings
