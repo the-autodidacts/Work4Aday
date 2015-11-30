@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
+  root 'application#welcome'
+
   resources :messages
   resources :jobpostings
   resources :users
+
+
+  get '/session' => 'session#the_current_user', defaults: {format: :json}
+  post '/session' => 'session#create'
+  delete '/session' => 'session#destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
