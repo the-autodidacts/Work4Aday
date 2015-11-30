@@ -16,6 +16,7 @@ class JobpostingsController < ApplicationController
     else
       flash[:message] = "error"
     end
+    render '/static/index'
   end
 
   def edit
@@ -33,7 +34,7 @@ class JobpostingsController < ApplicationController
 
   private
   def jobposting_params
-    params.require(:jobposting).permit(:location, :latitude, :longitude, :title, :description, :start_date, :start_time, :length, :rate_of_pay, :expires)
+    params.require(:jobposting).permit(:location, :latitude, :longitude, :title, :description, :start_date, :length, :rate_of_pay, :type_of_pay, :expires)
   end
 
 end

@@ -1,0 +1,95 @@
+<h5>POST A JOB</h5>
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geocoding service</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+#floating-panel {
+  position: absolute;
+  top: 10px;
+  left: 25%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
+
+    </style>
+  </head>
+  <body>
+    <div id="floating-panel">
+      <input id="address" type="textbox" value="Sydney, NSW">
+      <input id="submit" type="button" value="Geocode">
+    </div>
+    <div id="map"></div>
+    <script>
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 8,
+    center: {lat: -34.397, lng: 150.644}
+  });
+  var geocoder = new google.maps.Geocoder();
+
+  document.getElementById('submit').addEventListener('click', function() {
+    geocodeAddress(geocoder, map);
+  });
+}
+
+function geocodeAddress(geocoder, resultsMap) {
+  var address = document.getElementById('address').value;
+  geocoder.geocode({'address': address}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      resultsMap.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+        map: resultsMap,
+        position: results[0].geometry.location
+      });
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJzI8KKeNJJ0yk6CAZfXX_NBQEZOcOA4o&signed_in=true&callback=initMap"
+        async defer></script>
+  </body>
+</html>
+
+<div id="posting-form">
+  <form  action="<%= jobpostings_path %>" autocomplete="on" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
+    <br>
+    <label for="posting" class="form-label"><h6>Location</h6></label>
+    <input id="posting" name="jobposting[location]" required="required" type="text" placeholder="North Bergen, NJ" />
+    <label for="posting" class="form-label"><h6>Description</h6></label>
+    <input id="posting" name="jobposting[description]" required="required" type="text" placeholder="Pick all the weeds around property"/>
+
+    <label for="posting" class="form-label"> <h6>Start Date</h6></label>
+    <input id="posting" name="jobposting[start_date]" required="required" type="date"/>
+
+    <label for="posting" class="form-label"><h6>Rate of Pay</h6> </label>
+    <input id="passwordsignup" name="jobposting[rate_of_pay]" required="required" type="text" placeholder="15.0"/></br>
+
+    <label for="posting" class="form-label"><h6>Type of Pay</h6> </label>
+    <input id="passwordsignup" name="jobposting[type_of_pay]" required="required" type="text" placeholder="Hourly, Daily"/></br>
+
+    <input id="signupbutton" class='welbutton' type="submit" value="Find Workers"/>
+  </form>
+</div>

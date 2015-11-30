@@ -1,0 +1,13 @@
+
+<div id="jobpostings-container">
+<%@jobpostings.each do |post|%>
+<div class="jobpostings">
+  <h6>location:</h6> <%=post.location %>
+  <h6>description:</h6><%=post.description %>
+  <h6>Pay Rate:</h6><%=post.rate_of_pay %>
+  <h6>Type Of Pay:</h6><%=post.type_of_pay %>
+  <h6>Posted By:</h6><%=User.find(post.user_id).first_name%>
+  <a href="<%=post.type_of_pay %>">reply to this post</a>
+</div>
+<%end%>
+</div>
