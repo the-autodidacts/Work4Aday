@@ -2,7 +2,9 @@
 .hidden {
   display: none;
 }
-
+#map {
+  height: 20%;
+}
 #jobpostings-container {
       min-height: 400px;
       margin: auto;

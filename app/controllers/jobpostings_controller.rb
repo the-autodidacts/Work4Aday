@@ -7,6 +7,7 @@ class JobpostingsController < ApplicationController
   end
 
   def new
+    @myarray =[]
   end
 
   def create
